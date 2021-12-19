@@ -1,0 +1,17 @@
+{
+    "name": "poshik/php_docker_skeleton",
+    "description": "Skeleton for new PHP projects on docker",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "poshik",
+            "email": "poshik.vova@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "scripts": {
+        "post-create-project-cmd": "bash ./bin/init.sh"
+    }
+}

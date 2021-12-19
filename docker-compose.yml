@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: ${APP_NAME}-nginx:${NGINX_VERSION}
+    environment:
+      NGINX_ENVSUBST_TEMPLATE_SUFFIX: ".conf"
+      NGINX_HOST: ${NGINX_HOST}
+      NGINX_PORT: ${NGINX_PORT}
+    volumes:
+      - ./configs/nginx-templates:/etc/nginx/templates
+      - ./code:/var/www/app
+    ports:
+      - "${NGINX_PORT}:${NGINX_PORT}"
+    restart: always
+
+  php-fpm:
+    image: ${APP_NAME}-php-fpm:${PHP_VERSION}
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.17.0.1 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=${XDEBUG_IDE_SERVER_NAME}"
+      REMOTE_ADDR: "127.0.0.1"
+    volumes:
+      - ./code:/var/www/app
+    restart: always
+
+  php-cli:
+    image: ${APP_NAME}-php-cli:${PHP_VERSION}
+    pid: "host"
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.17.0.1 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=${XDEBUG_IDE_SERVER_NAME}"
+      REMOTE_ADDR: "127.0.0.1"
+    volumes:
+      - ./code:/var/www/app
+
+  db:
+    image: ${APP_NAME}-mysql:${MYSQL_VERSION}
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+#    ports:
+#      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
