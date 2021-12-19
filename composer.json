@@ -1,5 +1,5 @@
 {
-    "name": "poshik/php_docker_skeleton",
+    "name": "poshik/php_docker_empty_project",
     "description": "Skeleton for new PHP projects on docker",
     "type": "project",
     "license": "MIT",
