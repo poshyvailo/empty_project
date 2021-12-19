@@ -8,7 +8,10 @@
 </head>
 <body>
 <section>
-    <p>Empty project ready!</p>
+    <div>
+        <h1>Empty project ready!</h1>
+        <p>How to use...</p>
+    </div>
 </section>
 </body>
 </html>
